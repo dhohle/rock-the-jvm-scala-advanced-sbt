@@ -80,11 +80,11 @@ object TypeClasses extends App {
 
 
   // part 3
-  implicit class HTMLEnrichment[T](value: T){
-    def toHTML(implicit serializer: HTMLSerializer[T]):String = serializer.serialize(value)
+  implicit class HTMLEnrichment[T](value: T) {
+    def toHTML(implicit serializer: HTMLSerializer[T]): String = serializer.serialize(value)
   }
 
-//  println(john.toHTML(UserSerializer)) /// rewritten as: println(new HTMLEnrichment[User](john).toHTML(UserSerializer)
+  //  println(john.toHTML(UserSerializer)) /// rewritten as: println(new HTMLEnrichment[User](john).toHTML(UserSerializer)
   println(john.toHTML) /// rewritten as: println(new HTMLEnrichment[User](john).toHTML(UserSerializer)
 
   /*
@@ -102,10 +102,28 @@ object TypeClasses extends App {
   - conversion with implicit classes --- HTMLEnrichment
    */
 
+  // context bounds
+  def htmlBoilerplate[T](content: T)(implicit serializer: HTMLSerializer[T]): String =
+    s"<html><body>${content.toHTML(serializer)}</body></html>"
+
+  // context bound (injects serializer)
+//  def htmlSugar[T: HTMLSerializer](content: T): String = {
+//    s"<html><body>${content.toHTML}</body></html>"
+//  }
+  def htmlSugar[T: HTMLSerializer](content: T): String = {
+    val serializer = implicitly[HTMLSerializer[T]]
+    // use serializer
+    s"<html><body>${content.toHTML(serializer)}</body></html>"
+  }
 
 
+  //implicitly
+  case class Permissions(mask: String)
 
+  implicit val defaultPermissions: Permissions = Permissions("0744")
 
+  // in some other part of the code
+  val standardPerms = implicitly[Permissions]
 
 
 }
