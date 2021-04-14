@@ -203,5 +203,6 @@ spark-warehouse/
 
 
 # End of https://www.gitignore.io/api/sbt,scala,spark,intellij
-null/*
+null/**
+null\**
 .idea/*
