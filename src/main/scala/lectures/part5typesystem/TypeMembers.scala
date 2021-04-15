@@ -16,7 +16,7 @@ object TypeMembers extends App {
   }
 
   val ac = new AnimalCollection
-  val dog: ac.AnimalType = ??? // can't really do anything with this
+//  val dog: ac.AnimalType = ??? // can't really do anything with this
 
   //  val cat: ac.BoundedAnimal = new Cat // compiler doesn't now what bounded Animal this is, and so doesn't compile
   val pu: ac.SuperBoundedAnimal = new Dog // fine
@@ -35,7 +35,7 @@ object TypeMembers extends App {
   class NonEmptyList(value: Int) extends MyList {
     override type T = Int
 
-    def add(element: Int): MyList = ???
+    def add(element: Int): MyList = this
   }
 
   // .type
@@ -49,32 +49,32 @@ object TypeMembers extends App {
    */
 
   //LOCKED
-  trait MList {
-    type A
+//  trait MList {
+//    type A
+//
+//    def head: A
+//
+//    def tail: MList
+//  }
+//
+//  trait ApplicableToNumbers{
+//    type A <: Number
+//  }
 
-    def head: A
-
-    def tail: MList
-  }
-
-  trait ApplicableToNumbers{
-    type A <: Number
-  }
-
-  class CustomList(hd: String, tl: CustomList) extends MList with ApplicableToNumbers {
-    type A = String
-
-    def head: String = hd
-
-    def tail = tl
-  }
-  class IntList(hd: Int, tl: IntList) extends MList with ApplicableToNumbers{
-    type A = Int
-
-    def head: Int = hd
-
-    def tail = tl
-  }
+//  class CustomList(hd: String, tl: CustomList) extends MList with ApplicableToNumbers {
+//    type A = String
+//
+//    def head: String = hd
+//
+//    def tail = tl
+//  }
+//  class IntList(hd: Int, tl: IntList) extends MList with ApplicableToNumbers{
+//    type A = Int
+//
+//    def head: Int = hd
+//
+//    def tail = tl
+//  }
 
   // Number
   // type members and type member constraints (bounds)
