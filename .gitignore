@@ -206,3 +206,6 @@ spark-warehouse/
 null/**
 null\**
 .idea/*
+
+**/.metals
+**/.scala-build
